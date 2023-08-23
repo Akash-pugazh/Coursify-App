@@ -1,15 +1,29 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Card from "@mui/material/Card";
 import TextField from "@mui/material/TextField";
-import Button from "@mui/material/Button";
+import LoadingButton from "@mui/lab/LoadingButton";
 import { Typography } from "@mui/material";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { userSignUp } from "../Services/UserAccountActivities";
+
 const SignUp = () => {
   const [details, setDetails] = useState({
     userName: "",
     password: "",
   });
-
+  const [loading, setLoading] = useState(false);
+  const [success, setSuccess] = useState(null);
+  const [error, setError] = useState(null);
+  const navigate = useNavigate();
+  useEffect(() => {
+    if (success === true) {
+      navigate("/users");
+    } else if (success === false) {
+      setTimeout(() => {
+        setSuccess(null);
+      }, 2000);
+    }
+  }, [success]);
   const handleUserNameChange = e => {
     setDetails({ ...details, userName: e.target.value });
   };
@@ -18,7 +32,8 @@ const SignUp = () => {
   };
   const handleSubmit = e => {
     e.preventDefault();
-    if (details.userName.length <= 3 || details.password.length <= 8) return;
+    if (details.userName.length <= 3 || details.password.length < 8) return;
+    userSignUp(details, setLoading, setSuccess, setError);
     setDetails({
       userName: "",
       password: "",
@@ -60,9 +75,9 @@ const SignUp = () => {
           />
           <br />
           <br />
-          <Button type="submit" variant="outlined">
+          <LoadingButton loading={loading} type="submit" variant="outlined">
             Sign Up
-          </Button>
+          </LoadingButton>
           <div className="mt-4 flex items-center">
             <Typography marginRight={".5rem"} fontSize={".9rem"}>
               Already Registered, Login here
@@ -71,6 +86,11 @@ const SignUp = () => {
               </Link>
             </Typography>
           </div>
+          {success === false ? (
+            <div className="error-message text-red-500 text-center mt-4 animate-shake">
+              {error?.message}
+            </div>
+          ) : null}
         </form>
       </Card>
     </div>
