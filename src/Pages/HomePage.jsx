@@ -1,9 +1,7 @@
 import React from "react";
 import { Outlet } from "react-router-dom";
 import displayImg from "../Assets/Images/display.jpg";
-
 import AppBar from "../Components/AppBar";
-
 
 const HomePage = () => {
   return (

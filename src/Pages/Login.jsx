@@ -3,15 +3,12 @@ import Card from "@mui/material/Card";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import { Typography } from "@mui/material";
-import { UserContext } from "../Context/UserContext";
-import endPoint from "../Services/EndPoints";
-const SignIn = () => {
+import { Link } from "react-router-dom";
+const login = () => {
   const [details, setDetails] = useState({
     userName: "",
     password: "",
   });
-  const adminOrUser = useContext(UserContext);
-  console.log(adminOrUser);
   const handleUserNameChange = e => {
     setDetails({ ...details, userName: e.target.value });
   };
@@ -21,21 +18,6 @@ const SignIn = () => {
   const handleSubmit = e => {
     e.preventDefault();
     if (details.userName.length <= 3 || details.password.length <= 8) return;
-    const newUserObj = {
-      userName: details.userName,
-      password: details.password,
-    };
-    fetch(`${endPoint}${adminOrUser}/login`, {
-      method: "Post",
-      headers: {
-        "Content-type": "application/json",
-        username: newUserObj.userName,
-        password: newUserObj.password,
-      },
-    })
-      .then(res => res.json())
-      .then(data => console.log(data))
-      .catch(err => console.log(err));
     setDetails({
       userName: "",
       password: "",
@@ -47,7 +29,9 @@ const SignIn = () => {
       <Card className="p-10">
         <Typography variant="h5" fontSize={"1.3rem"} className="text-center">
           Welcome Back!
-          <span className="block font-semibold text-blue-500">Sign in</span>
+          <span className="block font-semibold text-blue-500">
+            Login to your account
+          </span>
         </Typography>
         <br />
         <form onSubmit={handleSubmit}>
@@ -77,12 +61,20 @@ const SignIn = () => {
           <br />
           <br />
           <Button type="submit" variant="outlined">
-            Sign In
+            Log In
           </Button>
+          <div className="mt-4 flex items-center">
+            <Typography marginRight={".5rem"} fontSize={".9rem"}>
+              New to Coursify, Create account here
+              <Link to="/signup" className="ml-2 text-blue-500 underline">
+                Sign Up
+              </Link>
+            </Typography>
+          </div>
         </form>
       </Card>
     </div>
   );
 };
 
-export default SignIn;
+export default login;

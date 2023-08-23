@@ -5,7 +5,6 @@ import { Link } from "react-router-dom";
 import { useLocation } from "react-router-dom";
 const AppBar = () => {
   const { pathname } = useLocation();
-  const isAdminPath = pathname.split("/").includes("admin");
   if (pathname === "/") return;
   return (
     <nav className="pt-2 px-2 flex justify-between items-center">
@@ -23,16 +22,16 @@ const AppBar = () => {
         </Link>
       </section>
       <section className="buttons flex gap-2">
-        <Link to={isAdminPath ? "/admin/signin" : "/user/signin"}>
+        {/* <Link to="/login">
           <Button variant="contained" size="small">
-            Sign In
+            Log In
           </Button>
         </Link>
-        <Link to={isAdminPath ? "/admin/signup" : "/user/signup"}>
+        <Link to="/signup">
           <Button variant="contained" size="small">
             Sign Up
           </Button>
-        </Link>
+        </Link> */}
       </section>
     </nav>
   );
