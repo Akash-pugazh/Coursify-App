@@ -1,6 +1,5 @@
 import endPoint from "./EndPoints";
 const userEndPoint = `${endPoint}users/`;
-
 export async function userSignUp(userObj, setLoading, setSuccess, setError) {
   const { userName, password } = userObj;
   const payLoad = {
@@ -30,4 +29,3 @@ export async function userSignUp(userObj, setLoading, setSuccess, setError) {
     setLoading(false);
   }
 }
-

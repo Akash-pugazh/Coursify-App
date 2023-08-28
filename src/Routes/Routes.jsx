@@ -11,6 +11,7 @@ import SignUp from "../Pages/SignUp";
 import Login from "../Pages/Login";
 import DisplayPage from "../Pages/DisplayPage";
 import NotFoundPage from "../Pages/NotFoundPage";
+import UserPage from "../Pages/UserPage";
 
 const Routes = () => {
   const router = createBrowserRouter(
@@ -20,6 +21,7 @@ const Routes = () => {
           <Route index element={<DisplayPage />} />
           <Route path="signup" element={<SignUp />} />
           <Route path="login" element={<Login />} />
+          <Route path="user" element={<UserPage />}></Route>
         </Route>
         <Route path="*" element={<NotFoundPage />} />
       </>

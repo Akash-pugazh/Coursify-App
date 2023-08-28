@@ -5,25 +5,30 @@ import LoadingButton from "@mui/lab/LoadingButton";
 import { Typography } from "@mui/material";
 import { Link, useNavigate } from "react-router-dom";
 import { userSignUp } from "../Services/UserAccountActivities";
-
+import { useSelector, useDispatch } from "react-redux";
+import { setUserDetails } from "../Features/User/userSlice";
 const SignUp = () => {
   const [details, setDetails] = useState({
     userName: "",
     password: "",
   });
+  const userState = useSelector(state => state.user);
+  console.log(userState);
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(null);
   const [error, setError] = useState(null);
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   useEffect(() => {
     if (success === true) {
-      navigate("/users");
+      navigate("/user");
     } else if (success === false) {
       setTimeout(() => {
         setSuccess(null);
       }, 2000);
     }
   }, [success]);
+
   const handleUserNameChange = e => {
     setDetails({ ...details, userName: e.target.value });
   };
@@ -34,6 +39,7 @@ const SignUp = () => {
     e.preventDefault();
     if (details.userName.length <= 3 || details.password.length < 8) return;
     userSignUp(details, setLoading, setSuccess, setError);
+    dispatch(setUserDetails(details.userName, details.password));
     setDetails({
       userName: "",
       password: "",
@@ -41,11 +47,11 @@ const SignUp = () => {
   };
 
   return (
-    <div id="sign-up" className="h-full grid place-items-center px-10">
+    <div id="sign-up" className="grid h-full px-10 place-items-center">
       <Card className="p-10">
         <Typography variant="h5" fontSize={"1.3rem"} className="text-center">
           Hey There!
-          <span className=" block font-semibold text-blue-500">
+          <span className="block font-semibold text-blue-500 ">
             Create your new account
           </span>
         </Typography>
@@ -78,7 +84,7 @@ const SignUp = () => {
           <LoadingButton loading={loading} type="submit" variant="outlined">
             Sign Up
           </LoadingButton>
-          <div className="mt-4 flex items-center">
+          <div className="flex items-center mt-4">
             <Typography marginRight={".5rem"} fontSize={".9rem"}>
               Already Registered, Login here
               <Link to="/login" className="ml-2 text-blue-500 underline">
@@ -87,7 +93,7 @@ const SignUp = () => {
             </Typography>
           </div>
           {success === false ? (
-            <div className="error-message text-red-500 text-center mt-4 animate-shake">
+            <div className="mt-4 text-center text-red-500 error-message animate-shake">
               {error?.message}
             </div>
           ) : null}
