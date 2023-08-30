@@ -1,12 +1,19 @@
 import React, { useEffect, useState } from "react";
 import CardCourse from "../Components/CardCourse";
-
+import axios from "axios";
 const UserPage = () => {
   const [courses, setCourses] = useState([]);
+  async function getCourses() {
+    try {
+      const res = await axios.get("http://localhost:3000/users/courses");
+      const data = res.json();
+      setCourses(data);
+    } catch (e) {
+      console.error(e);
+    }
+  }
   useEffect(() => {
-    fetch("http://localhost:3000/users/courses")
-      .then(res => res.json())
-      .then(data => setCourses(data));
+    getCourses();
   }, []);
   const renderCards =
     courses.length !== 0

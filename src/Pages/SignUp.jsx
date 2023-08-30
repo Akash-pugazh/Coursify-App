@@ -13,7 +13,6 @@ const SignUp = () => {
     password: "",
   });
   const userState = useSelector(state => state.user);
-  console.log(userState);
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(null);
   const [error, setError] = useState(null);

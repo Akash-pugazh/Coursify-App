@@ -20,7 +20,6 @@ const DisplayPage = () => {
             <Link to="/signup">
               <Button variant="outlined">Sign Up</Button>
             </Link>
-            <div>hekllo</div>
           </div>
         </section>
       </div>
