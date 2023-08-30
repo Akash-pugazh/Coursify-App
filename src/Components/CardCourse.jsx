@@ -1,16 +1,25 @@
 import React from "react";
-import pythonCourse from "../Assets/Images/pythonCourse.jpg";
-const CardCourse = () => {
+const CardCourse = ({
+  courseName,
+  courseDescription,
+  coursePrice,
+  courseImageLink,
+}) => {
   return (
-    <div className="card-course shadow-[0px_4px_12px_rgba(0, 0, 0, 0.1)]">
-      <img src={pythonCourse} className="w-[15rem]" alt="Course-Image" />
-      <h1>Course Name</h1>
+    <div className="flex flex-col gap-2 w-[15rem] shadow-lg p-4  select-none">
+      <img src={courseImageLink} className="w-[15rem]" alt="Course-Image" />
+      <h1 className="text-2xl font-bold">{courseName}</h1>
+
+      <p className="leading-4 text-gray-500">{courseDescription}</p>
       <p>
-        Description : Lorem ipsum dolor sit amet consectetur adipisicing elit.
-        Odit porro ad incidunt reiciendis corporis molestias natus quibusdam
-        ullam iusto.
+        Price : <span className="font-semibold">${coursePrice}</span>
       </p>
-      <button>Buy Now</button>
+      <button
+        type="button"
+        className="p-1 text-left text-white transition-all duration-1000 ease-in-out bg-blue-400 rounded w-max hover:bg-blue-600"
+      >
+        Buy Now
+      </button>
     </div>
   );
 };
