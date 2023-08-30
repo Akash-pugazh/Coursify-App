@@ -4,13 +4,13 @@ import Button from "@mui/material/Button";
 
 const DisplayPage = () => {
   return (
-    <div className="h-full grid place-items-center bg-cover">
-      <div className="text-center text-2xl">
-        <div className="mb-5 select-none text-7xl font-mono border-2 border-black p-5">
+    <div className="grid h-full bg-cover place-items-center">
+      <div className="text-2xl text-center">
+        <div className="p-5 mb-5 font-mono border-2 border-black select-none text-7xl">
           Coursify
         </div>
         <div className="mb-2">Era of Learning and Growing</div>
-        <section className="py-5 flex gap-2 items-center justify-center">
+        <section className="flex items-center justify-center gap-2 py-5">
           <div>
             <Link to="/login">
               <Button variant="outlined">Log In</Button>
@@ -20,6 +20,7 @@ const DisplayPage = () => {
             <Link to="/signup">
               <Button variant="outlined">Sign Up</Button>
             </Link>
+            <div>hekllo</div>
           </div>
         </section>
       </div>
