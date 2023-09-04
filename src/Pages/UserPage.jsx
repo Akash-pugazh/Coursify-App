@@ -6,7 +6,7 @@ const UserPage = () => {
   async function getCourses() {
     try {
       const res = await axios.get("http://localhost:3000/users/courses");
-      const data = res.json();
+      const data = res.data
       setCourses(data);
     } catch (e) {
       console.error(e);
@@ -21,6 +21,7 @@ const UserPage = () => {
           return (
             <div key={course._id}>
               <CardCourse
+                courseId={course._id}
                 courseName={course.title}
                 courseImageLink={course.imageLink}
                 courseDescription={course.description}

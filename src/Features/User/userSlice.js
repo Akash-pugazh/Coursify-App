@@ -25,8 +25,22 @@ const userSlice = createSlice({
         state.password = password;
       },
     },
+    addCourse: {
+      prepare(courseObj) {
+        return {
+          payload: {
+            courseObj,
+          },
+        };
+      },
+      reducer(state, action) {
+        const { courseObj } = action.payload;
+        if (state.purchasedCourses.includes(courseObj)) return;
+        state.purchasedCourses.push(courseObj);
+      },
+    },
   },
 });
 
-export const { setUserDetails } = userSlice.actions;
+export const { setUserDetails, addCourse } = userSlice.actions;
 export default userSlice.reducer;
