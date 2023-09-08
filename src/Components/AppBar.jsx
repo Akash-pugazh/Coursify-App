@@ -1,47 +1,166 @@
-import React from "react";
-import Typography from "@mui/material/Typography";
-import Button from "@mui/material/Button";
-import { AiOutlineUser } from "react-icons/ai";
+import { useEffect } from "react";
+import { CircularProgress } from "@mui/material";
 import { Link } from "react-router-dom";
-import { useLocation } from "react-router-dom";
-import { useSelector } from "react-redux";
-const AppBar = () => {
-  const { pathname } = useLocation();
-  const userState = useSelector(state => state.user);
-  if (pathname === "/") return;
-  return (
-    <nav className="flex items-center justify-between px-2 pt-2">
-      <section className="logo">
-        <Link to="/">
-          <Typography
-            variant="h1"
-            fontSize="2.2rem"
-            fontWeight={400}
-            className="drop-shadow-2xl"
-          >
-            Coursify
-          </Typography>
-        </Link>
-      </section>
-      {pathname.split("/").includes("user") ? (
-        <section className="flex gap-5 buttons">
-          <div className="flex items-center justify-center gap-1 mr-2">
-            <div>
-              <AiOutlineUser size={"1.5rem"} />
-            </div>
-            <div>{userState.userName}</div>
-          </div>
-          <Link to="/signup">
-            <Button variant="contained" size="small">
-              Log out
-            </Button>
-          </Link>
-        </section>
-      ) : (
-        false
-      )}
-    </nav>
-  );
-};
+import { useRecoilState } from "recoil";
+import { userState } from "./userState";
+import { useNavigate } from "react-router-dom";
+import { adminState } from "./adminAtom";
+import BaseURL from "./BaseURL";
 
-export default AppBar;
+export default function App() {
+  const navigate = useNavigate();
+  const [user, setUser] = useRecoilState(userState);
+
+  const [isAdmin] = useRecoilState(adminState);
+
+  useEffect(() => {
+    try {
+      const url = BaseURL + "/admin/me";
+
+      fetch(url, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: "Bearer " + localStorage.getItem("token"),
+        },
+      })
+        .then(res => res.json())
+        .then(data => {
+          if (data.username) {
+            setUser({
+              username: data.username,
+              loading: false,
+            });
+          } else {
+            setUser({
+              username: null,
+              loading: false,
+            });
+          }
+        })
+        .catch(err => {
+          console.log("/me api fetch request fail: " + err);
+          setUser({
+            ...user,
+            loading: false,
+          });
+        });
+    } catch (err) {
+      console.log("/me api fetch request fail: " + err);
+      setUser({
+        ...user,
+        loading: false,
+      });
+    }
+  }, []);
+
+  const logoutHandler = () => {
+    localStorage.setItem("token", null);
+    // window.location = "/";
+    setUser({
+      ...user,
+      username: null,
+    });
+    navigate("/");
+  };
+
+  function addCourseHandler() {
+    navigate("/add-course");
+  }
+
+  function exploreHandler() {
+    navigate("/courses");
+  }
+
+  function enrolledCourse() {
+    navigate("/enrolled-courses");
+  }
+
+  const LogIn = () => (
+    <div className="flex gap-2 items-center">
+      <div>{user.username}</div>
+      <button
+        className="hover:bg-white bg-[#212121] text-white hover:text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded-lg shadow"
+        onClick={exploreHandler}
+      >
+        Catalog
+      </button>
+      <button
+        className="hover:bg-white bg-[#212121] text-white hover:text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded-lg shadow"
+        onClick={addCourseHandler}
+      >
+        Create
+      </button>
+      <button
+        className="hover:bg-white bg-[#212121] text-white hover:text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded-lg shadow"
+        onClick={logoutHandler}
+      >
+        Logout
+      </button>
+    </div>
+  );
+
+  const UserLogIn = () => (
+    <div className="flex gap-2 items-center">
+      <div>{user.username}</div>
+      <button
+        className="hover:bg-white bg-[#212121] text-white hover:text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded-lg shadow"
+        onClick={exploreHandler}
+      >
+        Catalog
+      </button>
+      <button
+        className="hover:bg-white bg-[#212121] text-white hover:text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded-lg shadow"
+        onClick={enrolledCourse}
+      >
+        Enrolled Courses
+      </button>
+      <button
+        className="hover:bg-white bg-[#212121] text-white hover:text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded-lg shadow"
+        onClick={logoutHandler}
+      >
+        Logout
+      </button>
+    </div>
+  );
+
+  const LogOut = () => (
+    <div className="flex gap-2">
+      <Link
+        to="/login"
+        className="hover:bg-white bg-[#212121] text-white hover:text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded-lg shadow"
+      >
+        Login
+      </Link>
+      <Link
+        to="/register"
+        className="hover:bg-white bg-[#212121] text-white hover:text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded-lg shadow"
+      >
+        Signup
+      </Link>
+    </div>
+  );
+
+  const logoClickHandler = () => {
+    navigate("/");
+  };
+
+  return (
+    <div>
+      <nav className="h-auto w-full items-center flex justify-between p-8">
+        <span className="text-4xl h-10 cursor-pointer" onClick={logoClickHandler}>Coursify</span>
+        {user.loading ? (
+          <CircularProgress />
+        ) : user.username ? (
+          isAdmin ? (
+            <LogIn />
+          ) : (
+            <UserLogIn />
+          )
+        ) : (
+          <LogOut />
+        )}
+      </nav>
+    </div>
+  );
+}
