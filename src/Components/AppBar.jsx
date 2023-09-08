@@ -148,7 +148,12 @@ export default function App() {
   return (
     <div>
       <nav className="h-auto w-full items-center flex justify-between p-8">
-        <span className="text-4xl h-10 cursor-pointer" onClick={logoClickHandler}>Coursify</span>
+        <span
+          className="text-4xl h-10 cursor-pointer"
+          onClick={logoClickHandler}
+        >
+          Coursify
+        </span>
         {user.loading ? (
           <CircularProgress />
         ) : user.username ? (
