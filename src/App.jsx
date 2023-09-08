@@ -1,14 +1,14 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import Login from "@Components/Login";
-import Landing from "@Components/Landing";
-import AddCourse from "@Components/AddCourse";
-import Register from "@Components/Register";
-import ShowCourses from "@Components/ShowCourses";
-import Appbar from "@Components/Appbar";
-import EditCourse from "@Components/EditCourse";
-import Footer from "@Components/Footer";
-import EnrolledCourses from "@Components/EnrolledCourses";
-import NotFound from "@Components/UrlNotFound";
+import Login from "./Components/Login";
+import Landing from "./Components/Landing";
+import AddCourse from "./Components/AddCourse";
+import Register from "./Components/Register";
+import ShowCourses from "./Components/ShowCourses";
+import Appbar from "./Components/ApppBar"
+import EditCourse from "./Components/EditCourse";
+import Footer from "./Components/Footer";
+import EnrolledCourses from "./Components/EnrolledCourses";
+import NotFound from "./Components/UrlNotFound";
 import "./App.css";
 import { RecoilRoot } from "recoil";
 
