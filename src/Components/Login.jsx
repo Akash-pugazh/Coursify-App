@@ -53,19 +53,19 @@ function Login() {
   return (
     <div>
       <div>
-        <div className="w-screen text-center h-auto flex flex-col justify-baseline items-center mt-10">
-          <p className="text-gray-500 text-4xl font-semibold">Welcome back!</p>
-          <p className="text-gray-400 text-3xl font-semibold my-7 leading-10">
+        <div className="flex flex-col items-center w-screen h-auto mt-10 text-center justify-baseline">
+          <p className="text-4xl font-semibold text-gray-500">Welcome back!</p>
+          <p className="text-3xl font-semibold leading-10 text-gray-400 my-7">
             Lets get you signed in
           </p>
 
           <form
             onSubmit={logIn}
-            className="shadow-lg w-100 bg-white flex flex-col pt-10 items-center h-auto p-4 w-1/4 gap-4 border border-gray-300 rounded-lg"
+            className="flex flex-col items-center w-1/4 h-auto gap-4 p-4 pt-10 bg-white border border-gray-300 rounded-lg shadow-lg w-100"
           >
             <input
               type="text"
-              placeholder="Email"
+              placeholder="UserName"
               className=" border-2 bg-[#f7f7f9] p-2 rounded-sm shadow-md w-2/3 hover:bg-white focus:bg-white"
               value={email}
               onChange={e => setEmail(e.target.value)}
@@ -87,7 +87,7 @@ function Login() {
             />
 
             <button
-              className="bg-sky-500 hover:bg-sky-700 text-white font-bold py-2 px-4 rounded-lg mt-4"
+              className="px-4 py-2 mt-4 font-bold text-white rounded-lg bg-sky-500 hover:bg-sky-700"
               onClick={logIn}
             >
               Sign In

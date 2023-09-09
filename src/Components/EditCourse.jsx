@@ -1,11 +1,11 @@
 import React from "react";
 import { atom, useRecoilState } from 'recoil';
 import axios from "axios";
-import { Card, CardContent, CardMedia, Typography, Box, TextField, FormControlLabel, Switch, CircularProgress } from "@mui/material";
 import { useParams } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
-import { adminState } from "./adminAtom";
-import BaseURL from "./BaseURL";
+import { adminState } from "./AdminAtomData";
+import BaseURL from "./BaseUrlData";
+import { Card, CardContent, CardMedia, Typography, Box, TextField, FormControlLabel, Switch, CircularProgress } from "@mui/material";
 
 const courseState = atom({
   key: 'courseState',

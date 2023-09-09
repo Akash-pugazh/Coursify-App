@@ -1,10 +1,12 @@
 import React from 'react';
 import { useRecoilState } from 'recoil';
-import { adminState } from './adminAtom';
+import { adminState } from './AdminAtomData';
 import { useNavigate } from 'react-router-dom';
-import { CircularProgress, Typography, Card, CardContent, Box, CardMedia } from '@mui/material';
 import axios from 'axios';
-import BaseURL from './BaseURL';
+
+import BaseURL from './BaseUrlData';
+
+import { CircularProgress, Typography, Card, CardContent, Box, CardMedia } from '@mui/material';
 
 export default function EnrolledCourses() {
 

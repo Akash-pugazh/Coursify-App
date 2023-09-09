@@ -1,9 +1,8 @@
 import React from "react";
-import { Link } from "react-router-dom";
+
 import { Typography, Button } from "@mui/material";
 import { useNavigate } from "react-router-dom";
-import { useRecoilState } from "recoil";
-import { adminState } from "./adminAtom";
+
 
 function Landing() {
   const navigate = useNavigate();

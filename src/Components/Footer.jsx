@@ -6,7 +6,7 @@ const Footer = () => {
   const footerStyle = {
     backgroundColor: '#212121', // Dark navy blue grey color
     color: '#FFFFFF', // White text color
-    padding: '24px 0',
+    padding: '10px 0',
     textAlign: 'center',
     width: '100%',
     display: "flex"

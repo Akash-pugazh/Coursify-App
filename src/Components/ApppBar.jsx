@@ -1,18 +1,19 @@
 import { useEffect } from "react";
-import { CircularProgress } from "@mui/material";
 import { Link } from "react-router-dom";
 import { useRecoilState } from "recoil";
-import { userState } from "./UserStateData";
 import { useNavigate } from "react-router-dom";
+
+import { userState } from "./UserStateData";
 import { adminState } from "./AdminAtomData";
 import BaseURL from "./BaseUrlData";
 
-export default function App() {
+import { CircularProgress } from "@mui/material";
+import { FaUser } from "react-icons/fa";
+
+export default function Appbar() {
   const navigate = useNavigate();
   const [user, setUser] = useRecoilState(userState);
-
   const [isAdmin] = useRecoilState(adminState);
-
   useEffect(() => {
     try {
       const url = BaseURL + "/admin/me";
@@ -46,7 +47,7 @@ export default function App() {
           });
         });
     } catch (err) {
-      console.log("/me api fetch request fail: " + err);
+      console.error("/me api fetch request fail: " + err);
       setUser({
         ...user,
         loading: false,
@@ -56,7 +57,6 @@ export default function App() {
 
   const logoutHandler = () => {
     localStorage.setItem("token", null);
-    // window.location = "/";
     setUser({
       ...user,
       username: null,
@@ -76,9 +76,9 @@ export default function App() {
     navigate("/enrolled-courses");
   }
 
-  const LogIn = () => (
-    <div className="flex gap-2 items-center">
-      <div>{user.username}</div>
+  const AdminLogIn = () => (
+    <div className="flex items-center gap-2">
+      {user.username}
       <button
         className="hover:bg-white bg-[#212121] text-white hover:text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded-lg shadow"
         onClick={exploreHandler}
@@ -101,8 +101,15 @@ export default function App() {
   );
 
   const UserLogIn = () => (
-    <div className="flex gap-2 items-center">
-      <div>{user.username}</div>
+    <div className="flex items-center gap-2">
+      <div className="mr-2 underline">
+        <div className="flex items-center gap-2">
+          <div>
+            <FaUser />
+          </div>
+          <div>{user.username}</div>
+        </div>
+      </div>
       <button
         className="hover:bg-white bg-[#212121] text-white hover:text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded-lg shadow"
         onClick={exploreHandler}
@@ -147,18 +154,18 @@ export default function App() {
 
   return (
     <div>
-      <nav className="h-auto w-full items-center flex justify-between p-8">
-        <span
-          className="text-4xl h-10 cursor-pointer"
+      <nav className="flex items-center justify-between w-full h-auto p-4 px-8">
+        <div
+          className="h-10 text-4xl font-semibold cursor-pointer"
           onClick={logoClickHandler}
         >
           Coursify
-        </span>
+        </div>
         {user.loading ? (
           <CircularProgress />
         ) : user.username ? (
           isAdmin ? (
-            <LogIn />
+            <AdminLogIn />
           ) : (
             <UserLogIn />
           )

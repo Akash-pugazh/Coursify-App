@@ -1,29 +1,32 @@
+// ^ Importing Router
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+
+// ^ Importing Recoil
+import { RecoilRoot } from "recoil";
+
+// ^ Importing Components
 import Login from "./Components/Login";
 import Landing from "./Components/Landing";
 import AddCourse from "./Components/AddCourse";
 import Register from "./Components/Register";
 import ShowCourses from "./Components/ShowCourses";
-import Appbar from "./Components/ApppBar"
+import Appbar from "./Components/ApppBar";
 import EditCourse from "./Components/EditCourse";
 import Footer from "./Components/Footer";
 import EnrolledCourses from "./Components/EnrolledCourses";
 import NotFound from "./Components/UrlNotFound";
-import "./App.css";
-import { RecoilRoot } from "recoil";
 
-// This file shows how you can do routing in React.
-// Try going to /login, /register, /about, /courses on the website and see how the html changes
-// based on the route.
-// You can also try going to /random and see what happens (a route that doesnt exist)
-function App() {
+// ^ Importing Css
+import "./App.css";
+
+const App = () => {
   return (
     <div
       style={{
         display: "flex",
         flexDirection: "column",
         minHeight: "100vh",
-        // overflowX: "hidden",
+        width: "100vw",
         fontFamily: "Quicksand",
       }}
     >
@@ -33,7 +36,6 @@ function App() {
           <div
             style={{
               flex: 1,
-              // backgroundColor: "#eeeeee",
               overflowX: "hidden",
             }}
           >
@@ -54,5 +56,6 @@ function App() {
     </div>
   );
 }
+
 
 export default App;

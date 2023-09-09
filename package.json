@@ -1,8 +1,9 @@
 {
-  "name": "02-medium-course-selling-app",
+  "name": "coursify-app",
   "private": true,
   "version": "0.0.0",
   "type": "module",
+  "author": "Aakash Pugazh",
   "scripts": {
     "dev": "vite",
     "build": "vite build",

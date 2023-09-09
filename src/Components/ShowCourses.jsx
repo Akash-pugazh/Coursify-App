@@ -3,8 +3,8 @@ import { Box, Button, Card, CardContent, CardMedia, Typography, CircularProgress
 import axios from 'axios';
 import { useNavigate } from "react-router-dom";
 import { atom, useRecoilState } from 'recoil';
-import { adminState } from "./adminAtom";
-import BaseURL from "./BaseURL";
+import { adminState } from "./AdminAtomData";
+import BaseURL from "./BaseUrlData";
 
 const coursesState = atom({
     key: "coursesState", // Unique ID (with respect to other atoms/selectors)

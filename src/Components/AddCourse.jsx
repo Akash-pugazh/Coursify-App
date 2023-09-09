@@ -2,8 +2,8 @@ import React from "react";
 import { Switch, TextField, FormControlLabel } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import { useRecoilState } from "recoil";
-import { adminState } from "./adminAtom";
-import BaseURL from "./BaseURL";
+import { adminState } from "./AdminAtomData";
+import BaseURL from "./BaseUrlData";
 
 /// You need to add input boxes to take input for users to create a course.
 /// I've added one input so you understand the api to do it.
